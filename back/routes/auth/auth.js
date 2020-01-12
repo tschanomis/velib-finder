@@ -22,7 +22,7 @@ router.post('/login', (req, res) => {
 		res.header("Access-Control-Expose-Headers", "x-access-token")
 		res.set("x-access-token", token)
 		res.status(200).send("user connected")
-	}	
+	}
 })
 
 module.exports = router;
