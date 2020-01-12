@@ -30,7 +30,8 @@ class AutoCompleteAdress extends React.Component {
 					limit: '5',
 					lat: 48.8534,
 					lon: 2.3488,
-					city: "Paris"
+					city: "Paris",
+
 				},
 			})
 			.then(
@@ -51,7 +52,7 @@ class AutoCompleteAdress extends React.Component {
 			suggestions: [],
 			coord: value.geometry.coordinates,
 		}))
-		this.props.fetch(value.geometry.coordinates)
+		//this.props.fetch(value.geometry.coordinates)
 	}
 
 	renderSugegestions() {
@@ -75,18 +76,22 @@ class AutoCompleteAdress extends React.Component {
 
 	render() {
 		return (
-			<div className="AutoCompleteText">
-				<form onSubmit={this.handleSubmit}>
-					<label>Adresse: </label>
-					<input
-						id="start"
-						name="start"
-						type="text"
-						value={this.state.start}
-						onChange={this.handleChange}
-					/>
-					{this.renderSugegestions()}
-				</form>
+			<div>
+				<div className="AutoCompleteText">
+					<form onSubmit={this.handleSubmit}>
+						<label>Adresse: </label>
+						<input
+							id="start"
+							name="start"
+							type="text"
+							value={this.state.start}
+							onChange={this.handleChange}
+						/>
+						{this.renderSugegestions()}
+					</form>
+				</div>
+				<h2>{this.state.coord[0]}</h2>
+				<h2>{this.state.coord[1]}</h2>
 			</div>
 		)
 	}
