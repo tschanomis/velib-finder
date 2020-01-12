@@ -9,7 +9,7 @@ const Login = () => {
 			email: e.target.email.value,
 			password: e.target.password.value
 		}).then(res => {
-			console.log(res.data);
+			localStorage.setItem("token", res.headers["x-access-token"])
 		})
 	}
 
