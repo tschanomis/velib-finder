@@ -2,10 +2,13 @@ import React from 'react';
 
 import Login from './components/Login';
 import AutoCompleteAdress from './components/AutoCompleteAdress';
+import GetAll from './components/GetAll';
 
 import Map from 'pigeon-maps'
 import Marker from 'pigeon-marker'
 import Overlay from 'pigeon-overlay'
+
+
 
 class App extends React.Component {
   state = {
@@ -31,6 +34,7 @@ class App extends React.Component {
         <Map center={this.state.center} zoom={14} width={600} height={400}>
           <Marker anchor={this.state.coord} payload={1} onClick={({ event, anchor, payload }) => { }} />
         </Map>
+        <GetAll/>
       </div>
     );
   }

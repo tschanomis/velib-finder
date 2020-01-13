@@ -78,13 +78,14 @@ class AutoCompleteAdress extends React.Component {
 			<div>
 				<div className="AutoCompleteText">
 					<form onSubmit={this.handleSubmit}>
-						<label>Adresse: </label>
 						<input
 							id="start"
 							name="start"
 							type="text"
 							value={this.state.start}
 							onChange={this.handleChange}
+							placeholder="Adresse"
+							autoComplete="off"
 						/>
 						{this.renderSugegestions()}
 					</form>
