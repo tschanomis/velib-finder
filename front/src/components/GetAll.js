@@ -7,7 +7,7 @@ class GetAll extends React.Component {
 	}
 
 	handleTest = () => {
-		axios.get('http://localhost:4000/auth/login')
+		axios.get('http://localhost:4000/data/data')
 			.then(response => response.data)
 			.then(value => this.setState({ stations: value }))
 			.catch(error => console.log(error))
@@ -19,7 +19,7 @@ class GetAll extends React.Component {
 			<div className="GetAll" >
 				<button type='submit' onClick={this.handleTest}>Get</button>
 				<ul>
-					{this.state.stations.map((item, i) => <li key={i}>{item.Nom_de_la_station}</li>)}
+					{this.state.stations.map((item, i) => <li key={i}>{item.Nom_de_la_station}, {item.geo}</li>)}
 				</ul>
 			</div>
 		)

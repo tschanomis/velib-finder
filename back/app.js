@@ -6,6 +6,7 @@ const app = express();
 
 const connection = require('./helpers/db');
 const authRouter = require('./routes/auth/auth');
+const dataRouter = require('./routes/data/data');
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/auth', authRouter);
+app.use('/data', dataRouter);
 
 app.get('/', (req, res) => {
 	res.send("je suis dans /")

@@ -31,7 +31,6 @@ class AutoCompleteAdress extends React.Component {
 					lat: 48.8534,
 					lon: 2.3488,
 					city: "Paris",
-
 				},
 			})
 			.then(
