@@ -36,7 +36,6 @@ class AutoCompleteAdress extends React.Component {
 			})
 			.then(
 				response =>
-					console.log('Coordonnées:  ', response.data) ||
 					response.data.features,
 			)
 			.then(value =>
@@ -52,7 +51,7 @@ class AutoCompleteAdress extends React.Component {
 			suggestions: [],
 			coord: value.geometry.coordinates,
 		}))
-		//this.props.fetch(value.geometry.coordinates)
+		this.props.fetchCoord(value.geometry.coordinates)
 	}
 
 	renderSugegestions() {
