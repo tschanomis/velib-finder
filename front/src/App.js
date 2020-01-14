@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import Login from './components/Login';
 import AutoCompleteAdress from './components/AutoCompleteAdress';
@@ -9,31 +8,30 @@ import Map from 'pigeon-maps'
 import Marker from 'pigeon-marker'
 import Overlay from 'pigeon-overlay'
 
+import './App.css'
+
 class App extends React.Component {
   state = {
-    center: [48.8528, 2.3473],
+    //center: [48.8528, 2.3473],
     coord: null,
-    result: []
+    result: [],
+    items:[],
+    bool: false
   }
 
   handleCoord = (data) => {
     const dataReverse = data.reverse()
     this.setState({ coord: dataReverse })
-    this.setState({ center: dataReverse })
+    //this.setState({ center: dataReverse })
   }
 
-  handleTest2 = () => {
-    console.log("hello");
-    axios.post('http://localhost:4000/data/data', {
-      lat: this.state.coord[0],
-      lon: this.state.coord[1]
-    })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  handleMap = () => {
+    this.setState({ bool: true })
+  }
+
+  handleItem = (data) => {
+    console.log(data)
+    // have to fetch data and coord in one function
   }
 
   handleClick = (event, anchor, payload) => {
@@ -44,12 +42,14 @@ class App extends React.Component {
     return (
       <div className="App" >
         <Login />
-        <AutoCompleteAdress fetchCoord={this.handleCoord} />
-        <Map center={this.state.center} zoom={14} width={600} height={400} >
-          <Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
-        </Map>
-        <GetAll />
-        <button type='submit' onClick={this.handleTest2}>Get limit</button>
+        <AutoCompleteAdress fetchCoord={this.handleCoord} displayMap={this.handleMap} />
+        {this.state.bool ? (
+          <div className="ContainerResult">
+            <Map center={this.state.center} zoom={16} width={600} height={400} >
+              <Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
+            </Map>
+            <GetAll coord={this.state.coord} item={this.handleItem}/>
+          </div>) : ('')}
       </div>
     );
   }
