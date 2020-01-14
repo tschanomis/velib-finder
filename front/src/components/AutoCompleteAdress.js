@@ -58,12 +58,10 @@ class AutoCompleteAdress extends React.Component {
 		this.setState(() => ({
 			start: value.properties.label,
 			suggestions: [],
-			coord: value.geometry.coordinates.reverse(),
+			coord: value.geometry.coordinates
 		}))
-		console.log(value.geometry.coordinates)
-		//console.log(value.geometry.coordinates.reverse()[0])
-		//console.log(value.geometry.coordinates.reverse()[1])
-		//this.getStations(lat, lon)
+		const tabCoord = (value.geometry.coordinates.reverse())
+		this.getStations(tabCoord[0], tabCoord[1])
 		this.setState({ bool: true })
 	}
 
