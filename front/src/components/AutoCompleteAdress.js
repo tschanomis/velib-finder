@@ -107,9 +107,11 @@ class AutoCompleteAdress extends React.Component {
 				<div className="Container	Result">
 					{this.state.bool ? (
 						<div className="ContainerResult">
-							<Map center={this.state.coord} zoom={14} width={600} height={400} >
+							<Map center={this.state.coord} zoom={16} width={600} height={400} >
 								<Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
-								{this.state.items.map((item, i) => <Marker key={i} anchor={[parseFloat(item.geo.split(',')[0]), parseFloat(item.geo.split(',')[1])]} />)}
+								{this.state.items.map((item, i) => <Overlay key={i} anchor={[parseFloat(item.geo.split(',')[0]), parseFloat(item.geo.split(',')[1])]}>
+									<img src='https://pngimage.net/wp-content/uploads/2018/05/bicycle-logo-png-1.png' width={70} height={40} alt='pin-velo' />
+								</Overlay>)}
 							</Map>
 							<ul>
 								<li>Ref {this.state.coord}</li>
