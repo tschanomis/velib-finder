@@ -26,7 +26,7 @@ class App extends React.Component {
     return (
       <div className="App" >
         <Login />
-        <AutoCompleteAdress fetchCoord={this.handleCoord} /*displayMap={this.handleMap}*/ />
+        <AutoCompleteAdress />
       </div>
     );
   }

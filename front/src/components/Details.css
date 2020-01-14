@@ -1,0 +1,22 @@
+body, h4 {
+  margin: 0;
+  padding: 0;
+  font-size: small;
+}
+
+p {
+    margin: 5px;
+}
+
+.Card-station {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: black solid 1px;
+}
+
+.distance {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
