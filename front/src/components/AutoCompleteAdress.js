@@ -1,14 +1,19 @@
 import React from 'react'
 import axios from 'axios'
 
+import Map from 'pigeon-maps'
+import Marker from 'pigeon-marker'
+import Overlay from 'pigeon-overlay'
+
 import './AutoComplete.css'
 
 class AutoCompleteAdress extends React.Component {
 	state = {
 		start: '',
 		suggestions: [],
+		center: [48.8528, 2.3473],
 		coord: [],
-		map: false
+		items: []
 	}
 
 	handleSubmit = (e) => {
@@ -36,14 +41,24 @@ class AutoCompleteAdress extends React.Component {
 			.then(value => this.setState({ suggestions: value }))
 	}
 
+	getStations = () => {
+		axios.post('http://localhost:4000/data/data', {
+			lat: this.state.coord[1],
+			lon: this.state.coord[0]
+		})
+			.then(response => response.data)
+			.then(value => this.setState({ items: value }))
+			.catch(error => console.log(error))
+			.finally(() => console.log("axios done"))
+	}
+
 	suggestionsSelected(value) {
 		this.setState(() => ({
 			start: value.properties.label,
 			suggestions: [],
-			coord: value.geometry.coordinates,
+			coord: value.geometry.coordinates.reverse(),
 		}))
-		this.props.fetchCoord(value.geometry.coordinates);
-		this.props.displayMap();
+		this.getStations()
 	}
 
 	renderSugegestions() {
@@ -51,7 +66,6 @@ class AutoCompleteAdress extends React.Component {
 		if (suggestions.length === 0) {
 			return null
 		}
-
 		return (
 			<ul>
 				{suggestions.map(item => (
@@ -82,6 +96,12 @@ class AutoCompleteAdress extends React.Component {
 						/>
 						{this.renderSugegestions()}
 					</form>
+				</div>
+				<h1> autoComplete : {this.state.coord[0]} : {this.state.coord[1]}</h1>
+				<div className="ContainerResult">
+					<Map center={this.state.center} zoom={16} width={600} height={400} >
+						<Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
+					</Map>
 				</div>
 			</div>
 		)

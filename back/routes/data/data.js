@@ -13,4 +13,17 @@ router.get('/data', (req, res) => {
 	});
 });
 
+router.post('/data', (req, res) => {
+	const lat = req.body.lat;
+	const lon = req.body.lon;
+	connection.query(`SELECT Nom_de_la_station, get_distance_metres(?, ?, SUBSTRING_INDEX(geo, ',', 1), SUBSTRING_INDEX(SUBSTRING_INDEX(geo, ',', 2), ',', -1)) AS distance FROM mytable ORDER BY distance ASC LIMIT 20`, [lat, lon], (err, results) => {
+		if (err) {
+			console.log(err);
+			res.status(500).send("Erreur");
+		} else {
+			res.json(results);
+		}
+	});
+});
+
 module.exports = router;
