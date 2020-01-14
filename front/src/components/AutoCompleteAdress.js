@@ -11,9 +11,10 @@ class AutoCompleteAdress extends React.Component {
 	state = {
 		start: '',
 		suggestions: [],
-		center: [48.8528, 2.3473],
-		coord: [],
-		items: []
+		//center: [48.8528, 2.3473],
+		coord: [48.8528, 2.3473],
+		items: [],
+		bool: false
 	}
 
 	handleSubmit = (e) => {
@@ -41,10 +42,11 @@ class AutoCompleteAdress extends React.Component {
 			.then(value => this.setState({ suggestions: value }))
 	}
 
-	getStations = () => {
+	getStations = (latitude, longitude) => {
+		console.log("axios post : ", this.state.coord[0] )
 		axios.post('http://localhost:4000/data/data', {
-			lat: this.state.coord[1],
-			lon: this.state.coord[0]
+			lat: latitude,
+			lon: longitude
 		})
 			.then(response => response.data)
 			.then(value => this.setState({ items: value }))
@@ -58,7 +60,11 @@ class AutoCompleteAdress extends React.Component {
 			suggestions: [],
 			coord: value.geometry.coordinates.reverse(),
 		}))
-		this.getStations()
+		console.log(value.geometry.coordinates)
+		//console.log(value.geometry.coordinates.reverse()[0])
+		//console.log(value.geometry.coordinates.reverse()[1])
+		//this.getStations(lat, lon)
+		this.setState({ bool: true })
 	}
 
 	renderSugegestions() {
@@ -81,6 +87,7 @@ class AutoCompleteAdress extends React.Component {
 	}
 
 	render() {
+		console.log(this.state.items)
 		return (
 			<div>
 				<div className="AutoCompleteText">
@@ -98,10 +105,16 @@ class AutoCompleteAdress extends React.Component {
 					</form>
 				</div>
 				<h1> autoComplete : {this.state.coord[0]} : {this.state.coord[1]}</h1>
-				<div className="ContainerResult">
-					<Map center={this.state.center} zoom={16} width={600} height={400} >
-						<Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
-					</Map>
+				<div className="Container	Result">
+					{this.state.bool ? (
+						<div className="ContainerResult">
+							<Map center={this.state.coord} zoom={16} width={600} height={400} >
+								<Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
+							</Map>
+							<ul>
+					{this.state.items.map((item, i) => <li key={i}>{item.Nom_de_la_station}</li>)}
+							</ul>
+						</div>) : ('')}
 				</div>
 			</div>
 		)

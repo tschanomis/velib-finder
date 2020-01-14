@@ -2,11 +2,6 @@ import React from 'react';
 
 import Login from './components/Login';
 import AutoCompleteAdress from './components/AutoCompleteAdress';
-import GetAll from './components/GetAll';
-
-import Map from 'pigeon-maps'
-import Marker from 'pigeon-marker'
-import Overlay from 'pigeon-overlay'
 
 import './App.css'
 
@@ -32,7 +27,6 @@ class App extends React.Component {
       <div className="App" >
         <Login />
         <AutoCompleteAdress fetchCoord={this.handleCoord} /*displayMap={this.handleMap}*/ />
-        <h1>from app: {this.state.coord[0]}</h1>
       </div>
     );
   }
