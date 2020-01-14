@@ -11,12 +11,12 @@ p {
 .Card-station {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   border: black solid 1px;
   border-radius: 3px;
   margin: 5px 0 5px 0;
+  padding:0 100px 0 100px;
   background-color: lightgray;
-  
 }
 
 .distance {

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import Adresses from './Adresses'
 
@@ -7,11 +6,7 @@ import './Details.css'
 
 class Details extends React.Component {
 	state = {
-		addresses: [],
-	}
-
-	handleclick = (e) => {
-		console.log(e.target.id)
+		state: this.props.items
 	}
 
 	render() {
@@ -42,7 +37,7 @@ class Details extends React.Component {
 						</div>
 					</div>)}
 				</div>
-				<button>button</button>
+				<button>button +</button>
 			</div>
 		)
 	}

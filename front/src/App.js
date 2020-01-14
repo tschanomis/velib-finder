@@ -14,15 +14,6 @@ class App extends React.Component {
   }
 
   render() {
-    /*
-    {this.state.bool ? (
-              <div className="ContainerResult">
-                <Map center={this.state.center} zoom={16} width={600} height={400} >
-                  <Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
-                </Map>
-                <GetAll coord={this.state.coord} item={this.handleItem} />
-              </div>) : ('')}
-    */
     return (
       <div className="App" >
         <Login />

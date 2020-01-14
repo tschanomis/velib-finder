@@ -14,7 +14,6 @@ class Adresses extends React.Component {
 			},
 		}).then(value => {
 			const newValue = (value.data.features[0].properties.label)
-			console.log(newValue)
 			this.setState({ add: newValue })
 		})
 	}
