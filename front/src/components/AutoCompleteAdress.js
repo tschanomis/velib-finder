@@ -43,7 +43,7 @@ class AutoCompleteAdress extends React.Component {
 	}
 
 	getStations = (latitude, longitude) => {
-		console.log("axios post : ", this.state.coord[0] )
+		console.log("axios post : ", this.state.coord[0])
 		axios.post('http://localhost:4000/data/data', {
 			lat: latitude,
 			lon: longitude
@@ -85,7 +85,8 @@ class AutoCompleteAdress extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.items)
+		console.log(this.state.coord)
+		console.log(this.state.items[0])
 		return (
 			<div>
 				<div className="AutoCompleteText">
@@ -106,11 +107,13 @@ class AutoCompleteAdress extends React.Component {
 				<div className="Container	Result">
 					{this.state.bool ? (
 						<div className="ContainerResult">
-							<Map center={this.state.coord} zoom={16} width={600} height={400} >
+							<Map center={this.state.coord} zoom={14} width={600} height={400} >
 								<Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
+								{this.state.items.map((item, i) => <Marker key={i} anchor={[parseFloat(item.geo.split(',')[0]), parseFloat(item.geo.split(',')[1])]} />)}
 							</Map>
 							<ul>
-					{this.state.items.map((item, i) => <li key={i}>{item.Nom_de_la_station}</li>)}
+								<li>Ref {this.state.coord}</li>
+								{this.state.items.map((item, i) => <li key={i}>{item.Nom_de_la_station}, {item.geo}</li>)}
 							</ul>
 						</div>) : ('')}
 				</div>
