@@ -5,7 +5,7 @@ body, h4 {
 }
 
 p {
-    margin: 5px;
+  margin: 5px;
 }
 
 .Card-station {
@@ -13,6 +13,10 @@ p {
   flex-direction: row;
   justify-content: space-around;
   border: black solid 1px;
+  border-radius: 3px;
+  margin: 5px 0 5px 0;
+  background-color: lightgray;
+  
 }
 
 .distance {
