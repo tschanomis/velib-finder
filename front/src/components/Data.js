@@ -1,14 +1,21 @@
 import React from 'react'
 import axios from 'axios'
 
-import './AutoComplete.css'
+import Map from 'pigeon-maps'
+import Marker from 'pigeon-marker'
+import Overlay from 'pigeon-overlay'
 
-class AutoCompleteAdress extends React.Component {
+import Details from './Details'
+
+import './Data.css'
+
+class Data extends React.Component {
 	state = {
 		start: '',
 		suggestions: [],
-		coord: [],
-		map: false
+		coord: [48.8528, 2.3473],
+		items: [],
+		bool: false
 	}
 
 	handleSubmit = (e) => {
@@ -36,14 +43,26 @@ class AutoCompleteAdress extends React.Component {
 			.then(value => this.setState({ suggestions: value }))
 	}
 
+	getStations = (latitude, longitude) => {
+		axios.post('http://localhost:4000/data/data', {
+			lat: latitude,
+			lon: longitude
+		})
+			.then(response => response.data)
+			.then(value => this.setState({ items: value }))
+			.catch(error => console.log(error))
+			.finally(() => console.log("axios done"))
+	}
+
 	suggestionsSelected(value) {
 		this.setState(() => ({
 			start: value.properties.label,
 			suggestions: [],
-			coord: value.geometry.coordinates,
+			coord: value.geometry.coordinates
 		}))
-		this.props.fetchCoord(value.geometry.coordinates);
-		this.props.displayMap();
+		const tabCoord = (value.geometry.coordinates.reverse())
+		this.getStations(tabCoord[0], tabCoord[1])
+		this.setState({ bool: true })
 	}
 
 	renderSugegestions() {
@@ -51,7 +70,6 @@ class AutoCompleteAdress extends React.Component {
 		if (suggestions.length === 0) {
 			return null
 		}
-
 		return (
 			<ul>
 				{suggestions.map(item => (
@@ -83,9 +101,22 @@ class AutoCompleteAdress extends React.Component {
 						{this.renderSugegestions()}
 					</form>
 				</div>
+
+				<div className="Container-result">
+					{this.state.bool ? (
+						<div className="Block-map--info">
+							<Map center={this.state.coord} zoom={14} width={800} height={400} >
+								<Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
+								{this.state.items.map((item, i) => <Overlay key={i} anchor={[parseFloat(item.geo.split(',')[0]), parseFloat(item.geo.split(',')[1])]}>
+									<img src='https://pngimage.net/wp-content/uploads/2018/05/bicycle-logo-png-1.png' width={40} height={20} alt='pin-velo' />
+								</Overlay>)}
+							</Map>
+							<Details items={this.state.items} />
+						</div>) : ('')}
+				</div>
 			</div>
 		)
 	}
 }
 
-export default AutoCompleteAdress
+export default Data
