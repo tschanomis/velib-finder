@@ -1,24 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const app = express();
+const bcrypt = require('bcrypt');
+const connection = require('../../helpers/db');
 
-const jwtSecret = require('../../jwtSecret');
 
-router.post('/login', (req, res) => {
-	if (req.body.email === "email@gmail.com" && req.body.password === "password") {
-		console.log("Login ok")
-		const tokenUserInfo = {
-			email: req.body.email,
-			status: "status"
-		};
-		const token = jwt.sign(tokenUserInfo, jwtSecret);
-		res.header("Access-Control-Expose-Headers", "x-access-token")
-		res.set("x-access-token", token)
-		res.status(200).send("user connected")
-	}
+router.post('/signup', (req, res) => {
+	const email = req.body.email
+	const password = req.body.password
+	connection.query('INSERT INTO user (email, password) VALUES (?,?)', [email, password], (err, result) => {
+		if (err) {
+			res.status(500).json({ flash: "erreur" })
+		} else {
+			res.status(200).json({ flash: "Vous êtes enregistré" })
+		}
+	})
 })
 
-module.exports = router;
+router.post('/signin', (req, res) => {
+	const email = req.body.email
+	const password = req.body.password
+	connection.query('SELECT * FROM user WHERE email = ? AND password = ?', [email, password], (err, result) => {
+		if (err) {
+			res.status(500).json({ flash: "erreur" })
+		} else {
+			res.status(200).json({ flash: "connecté" })
+		}
+	})
+})
+module.exports = router
+
+

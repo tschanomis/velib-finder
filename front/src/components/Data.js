@@ -7,9 +7,9 @@ import Overlay from 'pigeon-overlay'
 
 import Details from './Details'
 
-import './AutoComplete.css'
+import './Data.css'
 
-class AutoCompleteAdress extends React.Component {
+class Data extends React.Component {
 	state = {
 		start: '',
 		suggestions: [],
@@ -105,10 +105,10 @@ class AutoCompleteAdress extends React.Component {
 				<div className="Container-result">
 					{this.state.bool ? (
 						<div className="Block-map--info">
-							<Map center={this.state.coord} zoom={16} width={800} height={400} >
+							<Map center={this.state.coord} zoom={14} width={800} height={400} >
 								<Marker anchor={this.state.coord} payload={1} onClick={this.handleClick} />
 								{this.state.items.map((item, i) => <Overlay key={i} anchor={[parseFloat(item.geo.split(',')[0]), parseFloat(item.geo.split(',')[1])]}>
-									<img src='https://pngimage.net/wp-content/uploads/2018/05/bicycle-logo-png-1.png' width={70} height={40} alt='pin-velo' />
+									<img src='https://pngimage.net/wp-content/uploads/2018/05/bicycle-logo-png-1.png' width={40} height={20} alt='pin-velo' />
 								</Overlay>)}
 							</Map>
 							<Details items={this.state.items} />
@@ -119,4 +119,4 @@ class AutoCompleteAdress extends React.Component {
 	}
 }
 
-export default AutoCompleteAdress
+export default Data

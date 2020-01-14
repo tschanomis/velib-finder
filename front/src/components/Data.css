@@ -1,0 +1,40 @@
+.AutoCompleteText {
+  padding: 0;
+  margin: 0;
+  border: 2px solid rgb(35, 122, 148);
+  border-radius: 5px;
+  font-size: large;
+}
+
+form {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.AutoCompleteText input {
+  height: 30px;
+  border: none;
+  font-size:large;
+  color: rgba(37, 34, 34);
+  outline: none;
+  border-radius: 10px;
+}
+
+.AutoCompleteText ul {
+  list-style-type: none;
+}
+
+.AutoCompleteText li {
+  cursor: pointer;
+}
+
+.AutoCompleteText li:hover {
+  background-color: lightgrey;
+}
+
+.Container-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

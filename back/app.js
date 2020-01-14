@@ -1,10 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 
-const connection = require('./helpers/db');
 const authRouter = require('./routes/auth/auth');
 const dataRouter = require('./routes/data/data');
 
@@ -25,7 +23,6 @@ app.use(function (req, res, next) {
 	err.status = 404;
 	next(err);
 });
-
 
 let server = app.listen(process.env.PORT || 4000, function () {
 	console.log('Listening on port ' + server.address().port);

@@ -1,24 +1,39 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import Login from './components/Login';
-import AutoCompleteAdress from './components/AutoCompleteAdress';
+import Data from './components/Data';
 
 import './App.css'
 
 class App extends React.Component {
   state = {
-    center: [48.8528, 2.3473],
-    coord: [],
-    items: [],
-    bool: false
+    bool: false,
+    log: false
+  }
+
+  handleLog = () => {
+    this.setState({ log: true })
   }
 
   render() {
     return (
-      <div className="App" >
-        <Login />
-        <AutoCompleteAdress />
-      </div>
+      <Router>
+        {this.state.log ? <Redirect to="/data" /> : '' }
+        <Switch>
+          <div className="App" >
+            <Route path="/login">
+              <Login log={this.handleLog} />
+            </Route>
+            <Route path="/data">
+              <Data />
+            </Route>
+            <Route path="/">
+              <Redirect to="/login" />
+            </Route>
+          </div>
+        </Switch>
+      </Router>
     );
   }
 }
